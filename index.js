@@ -5,7 +5,7 @@ const { MONGO_URI } = require("./config");
 const resolvers = require('./graphql/resolvers')
 const typeDefs = require("./graphql/typeDefs")
 
-const pubsub = new PubSub()
+const pubsub = new PubSub() //for subscriptions
 
 const server = new ApolloServer({
   typeDefs,
