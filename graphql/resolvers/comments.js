@@ -33,12 +33,11 @@ module.exports = {
 
         if(post){
             const commentIndex = post.comments.findIndex(c => c.id === commentId)
-
             if(post.comments[commentIndex].username === username){
                 post.comments.splice(commentIndex, 1)
                 await post.save()
                 return post
-            }
+            } 
             throw new AuthenticationError('Action not allowed')
         }
         throw new UserInputError('Post not found')
