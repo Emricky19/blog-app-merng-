@@ -3,7 +3,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { TOKEN_SECRET } = require("../../config");
 const { UserInputError } = require("apollo-server");
-const { validateRegisterInput, validateLoginInput } = require("../../util/vadiators");
+const {
+  validateRegisterInput,
+  validateLoginInput,
+} = require("../../util/vadiators");
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -12,7 +15,7 @@ const generateToken = (user) => {
       username: user.username,
       email: user.email,
     },
-    TOKEN_SECRET,
+    process.env.TOKEN_SECRET,
     { expiresIn: "1h" }
   );
 };
@@ -66,7 +69,7 @@ module.exports = {
 
       const { errors, valid } = validateLoginInput(username, password);
 
-      if(!valid) throw new UserInputError("Errors", { errors });
+      if (!valid) throw new UserInputError("Errors", { errors });
 
       const user = await User.findOne({ username });
       if (!user) {
